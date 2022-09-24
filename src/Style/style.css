@@ -6,20 +6,24 @@
     height: 350px;
 }
 .forca{
-    margin-left: 100px;
+    margin-left: 220px;
     margin-top: 30px;
+    
 }
 
 .botao{
     display: flex;
     margin-top: 59px;
-    margin-left: 600px;
+    margin-left: 400px;
     height: 40px;
     width: 130px;
     background-color: rgb(68, 189, 68);
     border-radius: 5px;
     justify-content: center;
     align-items: center;
+}
+.botao:hover{
+    cursor: pointer;
 }
 .escolha{
     color: white;
@@ -37,13 +41,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-left: 250px;
-    margin-top: 30px;
-    
-   
+    margin-top: 30px; 
 }
 
-.letra{
-    background-color: rgb(214, 215, 252);
+.letra-desabilitada{
+    background-color: rgb(131, 131, 131);
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -51,10 +53,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    border: solid rgb(27, 99, 255) 1px
+    border: solid rgb(78, 78, 78) 1px
 }
-a{
-    color: rgb(27, 99, 255);
+a {
+    color: rgb(95, 95, 95);
     font-weight: 900;
     font-size: larger;
 }
@@ -76,8 +78,41 @@ a{
     border-radius: 5px;
     border: solid rgb(27, 99, 255) 1px
 }
+.chute a{
+    color: rgb(27, 99, 255);
+   
+}
 
 h1{
     margin-top: 8px;
     margin-right: 10px;
+}
+
+.setPalavra{
+    margin-top: 300px;
+    margin-left: -250px;
+    font-weight: 900;
+    font-size: 40px;
+
+}
+.letra-habilitada{
+    background-color: rgb(199, 210, 255);
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: solid rgb(68, 36, 252) 1px;
+
+}
+.letra-habilitada:hover{
+    cursor: pointer;
+}
+
+.letra-habilitada a{
+    color: rgb(68, 36, 252);
+    font-weight: 900;
+    font-size: larger;
 }
