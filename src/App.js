@@ -11,6 +11,25 @@ import forca5 from "./assets/forca5.png"
 import forca6 from "./assets/forca6.png"
 
 
+
+function Letras(props) {
+    
+    const [letraHabilitada, setLetraHabilitada] = React.useState("letra-habilitada");
+    const[desabilitar, setDesabilitar] = React.useState(false)
+
+    if (props.novaPalavra === "") {
+
+        return (
+            <button className="letra-desabilitada" data-identifier="letter"><a>{props.letra}</a></button>
+        )
+    } else {
+        return (
+            <button className={letraHabilitada} disabled={props.jogoRolando && letraHabilitada === "letra-habilitada" ? false : true} data-identifier="letter" onClick={() => props.conferePalavra(props.letra, setLetraHabilitada, setDesabilitar)}><a>{props.letra}</a></button>
+        )
+    }
+
+}
+
 export default function App() {
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     const [novaPalavra, setNovaPalavra] = React.useState("");
@@ -19,18 +38,14 @@ export default function App() {
     const [erro, setErro] = React.useState(1);
     const [cor, setCor] = React.useState("");
     const [chutar, setChutar]= React.useState("");
-   
+    const [jogoRolando, setJogoRolando] = React.useState(false);
+    
     let letraClicada = ""
 
 
-
-
-
-    function conferePalavra(props, setLetraHabilitada) {
-        /* const letraRecebida = props.target.innerText.toLowerCase(); */
+    function conferePalavra(props, setLetraHabilitada, setDesabilitar) {
+        
         letraClicada = props.toLowerCase();
-
-
 
         arr.forEach((item, indice) => {
 
@@ -65,6 +80,8 @@ export default function App() {
                 setFoto(forca6);
                 alert("perdeu");
                 setCor("vermelho");
+                setJogoRolando(false)
+                setLetraHabilitada("letra-desabilitada");
                 return setNovaPalavra(arr);
             }
         }
@@ -77,32 +94,26 @@ export default function App() {
             }
             if (j === arr.length) {
                 setCor("verde");
+                alert("acerto miseravi");
+                setJogoRolando(false)
+                
             }
         }
 
 
 
-        setLetraHabilitada("letra-desabilitada")
+        
         console.log(letraClicada);
         setNovaPalavra([...novaPalavra]);
+        setLetraHabilitada("letra-desabilitada");
+        setDesabilitar(true);
+        
+
 
     }
 
-    function Letras(props) {
-        const [letraHabilitada, setLetraHabilitada] = React.useState("letra-habilitada");
+    
 
-        if (novaPalavra === "") {
-
-            return (
-                <button className="letra-desabilitada"><a>{props.letra}</a></button>
-            )
-        } else {
-            return (
-                <button className={letraHabilitada} onClick={() => conferePalavra(props.letra, setLetraHabilitada)}><a>{props.letra}</a></button>
-            )
-        }
-
-    }
     function removerCaracteres(str) {
         str = str.toLowerCase();
         str = str.replace(new RegExp('[ÁÀÂÃ]', 'gi'), 'a');
@@ -115,7 +126,7 @@ export default function App() {
     }
 
     function sorteiaPalavra() {
-        /* let palavraEscondida = ""; */
+        setJogoRolando(true);
         let novoArr = [];
         let arrayPalavra = [];
 
@@ -128,12 +139,14 @@ export default function App() {
             arrayPalavra.push(palavraSorteada[i]);
 
         }
-        console.log(novoArr);
+        
         console.log(arrayPalavra);
         setNovaPalavra(novoArr);
         setNovoArr(arrayPalavra);
         setFoto(forca0);
         setErro(1);
+        setCor("");
+        
     }
 
     function chutarPalavra(){
@@ -142,37 +155,40 @@ export default function App() {
         confereChute = confereChute + arr[i];
         console.log(confereChute);}
 
-
-        
-        
         if(chutar === confereChute){
             setNovaPalavra(arr);
             setCor("verde");
             alert("acertô miseravi");
+            
+            
         } else{
             setFoto(forca6);
             setCor("vermelho");
             setNovaPalavra(arr);
             alert("Péssimo chute!");
+            
+
         }
+        setJogoRolando(false);
+        
     }
 
     return (<>
         <div className="container">
             <div className="topo">
                 <div className="forca">
-                    <img src={foto} />
+                    <img src={foto} data-identifier="guess-button"/>
                 </div>
-                <div className="botao" onClick={sorteiaPalavra}><p className="escolha">Sortear Palavra</p></div>
-                <div className={`setPalavra ${cor}`}>{novaPalavra}</div>
+                <div className="botao" onClick={sorteiaPalavra} data-identifier="choose-word"><p className="escolha">Sortear Palavra</p></div>
+                <div className={`setPalavra ${cor}`} data-identifier="word">{novaPalavra}</div>
             </div>
             <div className="baixo">
                 <div className="teclado">
-                    {alfabeto.map((a) => <Letras letra={a.toUpperCase()} novaPalavra={novaPalavra} />)}
+                    {alfabeto.map((a) => <Letras letra={a.toUpperCase()} novaPalavra={novaPalavra} conferePalavra = {conferePalavra} jogoRolando ={jogoRolando}/>)}
                 </div>
                 <div className="chute" >
-                    <h1>Já sei a palavra!</h1><input placeholder="Chute aqui!" value={chutar} onChange={(c) => setChutar(c.target.value)} ></input><div>
-                        <a className="button" onClick={chutarPalavra}>Chutar</a></div>
+                    <h1>Já sei a palavra!</h1><input placeholder="Chute aqui!" value={chutar} onChange={(c) => setChutar(c.target.value)} data-identifier="type-guess"></input><div>
+                        <a className="button" onClick={chutarPalavra} data-identifier="guess-button">Chutar</a></div>
                 </div>
             </div>
         </div>
