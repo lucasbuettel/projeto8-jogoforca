@@ -48,7 +48,7 @@
     background-color: rgb(131, 131, 131);
     width: 50px;
     height: 50px;
-    margin-right: 10px;
+    margin-right: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,6 +66,9 @@ a {
     display: flex;
     flex-wrap: wrap;
     margin-top: 15px;
+}
+.chute:hover{
+    cursor: pointer;
 }
 .button{
     background-color: rgb(214, 215, 252);
@@ -99,7 +102,7 @@ h1{
     background-color: rgb(199, 210, 255);
     width: 50px;
     height: 50px;
-    margin-right: 10px;
+    margin-right: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,4 +118,11 @@ h1{
     color: rgb(68, 36, 252);
     font-weight: 900;
     font-size: larger;
+}
+
+.vermelho{
+    color: red;
+}
+.verde{
+    color: green;
 }
